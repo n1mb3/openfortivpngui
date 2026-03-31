@@ -1,0 +1,39 @@
+# ── Node / JS (resíduos do projeto anterior) ──────────────────────────────────
+node_modules/
+package-lock.json
+dist/
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# ── Configurações locais (não commitar — contêm gateways e dados pessoais) ────
+# O arquivo real fica em ~/.config/openfortivpngui/config.json (fora do repo).
+# Se alguém colocar um config.json aqui por engano, não vai entrar no git:
+config.json
+*.local.json
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Ambiente virtual ──────────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+
+# ── IDEs ──────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
