@@ -257,19 +257,19 @@ class VpnManager:
             self._status = DISCONNECTED
 
         if proc:
+            # Mata apenas o openfortivpn filho deste sudo específico
+            try:
+                subprocess.run(
+                    ["sudo", "pkill", "-P", str(proc.pid)],
+                    capture_output=True, timeout=5
+                )
+            except Exception:
+                pass
             try:
                 proc.kill()
                 proc.wait(timeout=3)
             except Exception:
                 pass
 
-        # Mata pelo gateway para não afetar outras instâncias ativas
-        try:
-            subprocess.run(
-                ["sudo", "killall", "-q", "openfortivpn"],
-                capture_output=True, timeout=5
-            )
-        except Exception:
-            pass
         log.info("[%s] Desconectado.", self.profile_id)
 

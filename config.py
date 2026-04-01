@@ -5,7 +5,7 @@ from pathlib import Path
 # Perfis de exemplo — edite pelo menu "Editar configurações…" ou diretamente em
 # ~/.config/openfortivpngui/config.json
 _DEFAULTS = [
-    {"id": "example", "name": "Minha VPN", "gateway": "vpn.exemplo.com", "port": 443, "saml": True},
+    {"id": "example", "name": "Minha VPN", "gateway": "vpn.exemplo.com", "port": 443, "saml": True, "browser": ""},
 ]
 
 

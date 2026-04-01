@@ -137,20 +137,21 @@ def _refresh():
             logger.warning("Erro ao atualizar tray: %s", e)
 
 
-def _open_browser(url: str):
+def _open_browser(url: str, browser: str = ""):
     logger.info("Abrindo browser para URL SAML: %s", url)
-    for browser in ["firefox", "xdg-open"]:
+    candidates = [b for b in [browser, "firefox", "xdg-open"] if b]
+    for b in candidates:
         try:
             subprocess.Popen(
-                [browser, url],
+                [b, url],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
             )
-            logger.info("Browser aberto com: %s", browser)
+            logger.info("Browser aberto com: %s", b)
             return
         except FileNotFoundError:
             continue
-    logger.error("Nenhum browser encontrado (firefox, xdg-open)")
+    logger.error("Nenhum browser encontrado: %s", candidates)
 
 
 def _do_connect(profile_id: str):
@@ -158,9 +159,10 @@ def _do_connect(profile_id: str):
     if not p:
         return
     mgr = _get_manager(profile_id)
+    browser = p.get("browser", "")
     mgr.connect(
         p,
-        on_url=_open_browser,
+        on_url=lambda url: _open_browser(url, browser),
         on_connected=_refresh,
         on_error=lambda err: (
             logger.error("VPN error [%s]: %s", profile_id, err),

@@ -156,3 +156,29 @@ def _draw_card(root, inner, canvas, data, idx, p, redraw):
         bg=CARD, fg="#aaa", font=("sans-serif", 10), selectcolor=CARD,
         activebackground=CARD, activeforeground=FG, cursor="hand2"
     ).pack(anchor="w")
+
+    # ── Navegador ────────────────────────────────────────────────────────────
+    br_f = tk.Frame(card, bg=CARD)
+    br_f.pack(fill="x", pady=(6, 0))
+    tk.Label(br_f, text="NAVEGADOR", bg=CARD, fg="#888", font=("sans-serif", 8)).pack(anchor="w")
+
+    BROWSERS = ["", "firefox", "google-chrome", "chromium", "chromium-browser", "brave-browser", "xdg-open"]
+    br_v = tk.StringVar(value=p.get("browser", ""))
+    br_v.trace_add("write", lambda *_: data[idx].update({"browser": br_v.get()}))
+
+    br_row = tk.Frame(br_f, bg=CARD)
+    br_row.pack(fill="x")
+
+    opt = tk.OptionMenu(br_row, br_v, *BROWSERS)
+    opt.config(
+        bg=INPUT, fg=FG, bd=0, activebackground="#1a4a8a", activeforeground=FG,
+        highlightthickness=1, highlightbackground="#1a4a8a", font=("sans-serif", 11),
+        indicatoron=True, relief="flat",
+    )
+    opt["menu"].config(bg=INPUT, fg=FG, activebackground=ACCENT, activeforeground=BG)
+    opt.pack(side="left", fill="x", expand=True)
+
+    tk.Label(
+        br_row, text="(vazio = padrão do sistema)",
+        bg=CARD, fg="#666", font=("sans-serif", 9)
+    ).pack(side="left", padx=(8, 0))
